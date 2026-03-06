@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Teardown</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --surface2: #1a1a24;
+      --border: rgba(255,255,255,0.07);
+      --accent: #7c6af7;
+      --accent2: #a78bfa;
+      --text: #e8e8f0;
+      --muted: #8888aa;
+      --nav-h: 64px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(10,10,15,0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+    }
+
+    .nav-logo {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .nav-logo span { color: var(--accent2); }
+
+    .nav-links {
+      display: flex;
+      gap: 2px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 7px;
+      transition: color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover { color: var(--text); background: rgba(124,106,247,0.1); }
+    .nav-links a.active { color: var(--accent2); background: rgba(124,106,247,0.14); }
+
+    /* ── SECTIONS ── */
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: calc(var(--nav-h) + 72px) 48px 80px;
+      max-width: 1080px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    section + section { border-top: 1px solid var(--border); }
+
+    /* ── HERO ── */
+    .hero-pov {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent2);
+      margin-bottom: 10px;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-size: clamp(52px, 9vw, 96px);
+      font-weight: 800;
+      line-height: 1.03;
+      letter-spacing: -0.03em;
+      background: linear-gradient(140deg, #fff 35%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 24px;
+    }
+
+    .hero-sub {
+      font-size: 19px;
+      color: var(--muted);
+      max-width: 480px;
+    }
+
+    .hero-cta {
+      margin-top: 44px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 11px 24px;
+      border-radius: 9px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #6b59e8; transform: translateY(-1px); }
+    .btn-ghost { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+    .btn-ghost:hover { background: #22222e; transform: translateY(-1px); }
+
+    /* ── SECTION HEADER ── */
+    .s-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 12px;
+    }
+
+    .s-title {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .s-intro {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 660px;
+      margin-bottom: 44px;
+      line-height: 1.75;
+    }
+
+    /* ── CARD GRID ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .card:hover { border-color: rgba(124,106,247,0.3); transform: translateY(-2px); }
+
+    .card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+    /* ── STATS ── */
+    .stats-row {
+      display: flex;
+      gap: 16px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      flex: 1;
+      min-width: 150px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 24px;
+    }
+
+    .stat-n {
+      font-size: 38px;
+      font-weight: 800;
+      color: var(--accent2);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .stat-l { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+    /* ── TWO COLS ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    @media (max-width: 680px) { .two-col { grid-template-columns: 1fr; } }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 30px;
+    }
+
+    .panel-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 6px;
+    }
+
+    .panel-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .panel ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+
+    .panel ul li {
+      font-size: 14px;
+      color: #c5c5e0;
+      padding-left: 18px;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .panel ul li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* ── FRAMEWORK ROWS ── */
+    .framework { display: flex; flex-direction: column; gap: 10px; }
+
+    .fw-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 26px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .fw-row:hover { border-color: rgba(124,106,247,0.3); transform: translateX(4px); }
+
+    .fw-num {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      min-width: 28px;
+      padding-top: 3px;
+    }
+
+    .fw-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .fw-body p { font-size: 14px; color: var(--muted); }
+
+    /* ── TIMELINE ── */
+    .timeline { display: flex; flex-direction: column; position: relative; }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 54px;
+      top: 24px; bottom: 24px;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .tl-item { display: flex; gap: 20px; padding: 18px 0; }
+
+    .tl-badge { min-width: 84px; text-align: right; padding-top: 4px; }
+
+    .tl-time {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--accent2);
+      background: rgba(124,106,247,0.12);
+      border-radius: 6px;
+      padding: 4px 10px;
+      display: inline-block;
+    }
+
+    .tl-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 8px;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 3px rgba(124,106,247,0.18);
+    }
+
+    .tl-body { flex: 1; }
+    .tl-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 5px; }
+    .tl-body p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+    /* ── CTA ── */
+    #cta { align-items: center; text-align: center; position: relative; overflow: hidden; }
+
+    .cta-glow {
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,106,247,0.16) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 28px;
+      font-size: 13px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      section { padding: calc(var(--nav-h) + 48px) 24px 64px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Product <span>Teardown</span></div>
+  <ul class="nav-links">
+    <li><a href="#what">What Is It</a></li>
+    <li><a href="#why">Why It Matters</a></li>
+    <li><a href="#leaders">For Leaders</a></li>
+    <li><a href="#framework">5-Lens Framework</a></li>
+    <li><a href="#workshop">Workshop</a></li>
+    <li><a href="#cta">Let's Start</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-pov">Tejas' POV</div>
+  <div class="hero-label">A Framework for Deep Product Learning</div>
+  <h1 class="hero-title">Product<br/>Teardown</h1>
+  <p class="hero-sub">Understanding how great products work — and why</p>
+  <div class="hero-cta">
+    <a href="#what" class="btn btn-primary">Explore the Framework</a>
+    <a href="#workshop" class="btn btn-ghost">Run a Workshop</a>
+  </div>
+</section>
+
+<!-- WHAT IS IT -->
+<section id="what">
+  <div class="s-label">Definition</div>
+  <h2 class="s-title">What Is a Product Teardown?</h2>
+  <p class="s-intro">A product teardown is a structured analysis that dismantles a product or a service to understand its design decisions, user experience, business model, and technical choices — revealing why it succeeds or fails.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <h3>Analyze</h3>
+      <p>Examine every layer of a product / service: UX flows, features, onboarding, and edge cases</p>
+    </div>
+    <div class="card">
+      <h3>Understand</h3>
+      <p>Uncover the 'why' behind design decisions, trade-offs, and product strategies</p>
+    </div>
+    <div class="card">
+      <h3>Apply</h3>
+      <p>Extract lessons and patterns to improve your own product thinking and execution</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY IT MATTERS -->
+<section id="why">
+  <div class="s-label">Value</div>
+  <h2 class="s-title">Why Product Teardowns Matter</h2>
+
+  <div class="card-grid">
+    <div class="card">
+      <h3>Build Product Intuition</h3>
+      <p>Repeated exposure to real products trains sharper instincts for what works and what doesn't</p>
+    </div>
+    <div class="card">
+      <h3>Learn from the Best</h3>
+      <p>Study industry standards and market needs for better customer empathy</p>
+    </div>
+    <div class="card">
+      <h3>Accelerate Team Growth</h3>
+      <p>Shared teardowns create a common vocabulary and elevate the whole team's thinking</p>
+    </div>
+    <div class="card">
+      <h3>Spot Market Gaps</h3>
+      <p>Identify gaps in the market and turn them into your opportunities</p>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-n">3×</div>
+      <div class="stat-l">faster product intuition building</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">85%</div>
+      <div class="stat-l">of PMs say teardowns improved their UX skills</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">10+</div>
+      <div class="stat-l">insights per session on average</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR LEADERS -->
+<section id="leaders">
+  <div class="s-label">Leadership</div>
+  <h2 class="s-title">Why This Is Critical for<br/>Techno-Functional Leaders</h2>
+  <p class="s-intro">As techno-functional leaders, you sit at the intersection of business and engineering. Product teardowns are your bridge — helping you speak both languages fluently and lead with confidence.</p>
+
+  <div class="two-col">
+    <div class="panel">
+      <div class="panel-title">Functional Lens</div>
+      <div class="panel-sub">What teardowns teach you about the product side:</div>
+      <ul>
+        <li>Understand user needs, workflows, and pain points from a structured lens</li>
+        <li>Evaluate UX patterns, onboarding flows, and feature trade-offs</li>
+        <li>Inform product roadmap decisions with real-world benchmarks</li>
+        <li>Identify gaps your product can fill vs. market gaps</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Technical Lens</div>
+      <div class="panel-sub">What teardowns unlock on the engineering side:</div>
+      <ul>
+        <li>Decode technical stack choices and understand their architectural implications</li>
+        <li>Participate meaningfully in tech discussions — ask the right questions</li>
+        <li>Evaluate build vs. buy decisions with real product context</li>
+        <li>Make informed technical trade-off decisions grounded in product reality</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 5-LENS FRAMEWORK -->
+<section id="framework">
+  <div class="s-label">Framework</div>
+  <h2 class="s-title">The 5-Lens Teardown Framework</h2>
+
+  <div class="framework">
+    <div class="fw-row">
+      <div class="fw-num">01</div>
+      <div class="fw-body">
+        <h3>User Experience</h3>
+        <p>First impressions, onboarding, core flows, delight moments, design system of services</p>
+      </div>
+    </div>
+    <div class="fw-row">
+      <div class="fw-num">02</div>
+      <div class="fw-body">
+        <h3>Feature Design</h3>
+        <p>Key features, trade-offs, what's missing and why</p>
+      </div>
+    </div>
+    <div class="fw-row">
+      <div class="fw-num">03</div>
+      <div class="fw-body">
+        <h3>Business Model</h3>
+        <p>Monetization, pricing strategy, growth loops, opportunity identification</p>
+      </div>
+    </div>
+    <div class="fw-row">
+      <div class="fw-num">04</div>
+      <div class="fw-body">
+        <h3>Technical Choices</h3>
+        <p>Architecture signals, performance, scalability decisions</p>
+      </div>
+    </div>
+    <div class="fw-row">
+      <div class="fw-num">05</div>
+      <div class="fw-body">
+        <h3>Market Positioning</h3>
+        <p>Messaging, target audience, differentiation, becoming the customer's voice</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKSHOP STRUCTURE -->
+<section id="workshop">
+  <div class="s-label">Workshop</div>
+  <h2 class="s-title">Product Teardown Workshop — Structure</h2>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-badge"><span class="tl-time">10 min</span></div>
+      <div class="tl-dot"></div>
+      <div class="tl-body">
+        <h3>Step 1 — Pick the Product / Service</h3>
+        <p>Choose a product/service everyone can access or are aware of.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-badge"><span class="tl-time">15 min</span></div>
+      <div class="tl-dot"></div>
+      <div class="tl-body">
+        <h3>Step 2 — Solo Exploration</h3>
+        <p>Each participant explores independently using the 5-Lens Framework. No discussion yet — capture raw observations.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-badge"><span class="tl-time">20 min</span></div>
+      <div class="tl-dot"></div>
+      <div class="tl-body">
+        <h3>Step 3 — Group Share-Out</h3>
+        <p>Round-robin sharing of key findings per lens. Document everything on a shared whiteboard or Miro.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-badge"><span class="tl-time">10 min</span></div>
+      <div class="tl-dot"></div>
+      <div class="tl-body">
+        <h3>Step 4 — Synthesis</h3>
+        <p>As a team, identify top 3 lessons and 1 feature/idea worth stealing or avoiding in your own product / service.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-badge"><span class="tl-time">5 min</span></div>
+      <div class="tl-dot"></div>
+      <div class="tl-body">
+        <h3>Step 5 — Action Items</h3>
+        <p>Assign 1 owner per insight to explore further. Share findings async with the wider team.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-glow"></div>
+  <div class="s-label" style="position:relative;z-index:1;">Let's Begin</div>
+  <h2 class="s-title" style="position:relative;z-index:1;">Let's Start Tearing Down!</h2>
+  <p class="s-intro" style="position:relative;z-index:1;text-align:center;margin-bottom:0;">Our first workshop — picking a product together</p>
+</section>
+
+<footer>Product Teardown Framework</footer>
+
+<script>
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === `#${id}`);
+        });
+      }
+    });
+  }, { threshold: 0.35 });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
