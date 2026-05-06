@@ -78,14 +78,18 @@
 
     /* ── SECTIONS ── */
     section {
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: calc(var(--nav-h) + 72px) 48px 80px;
+      padding: 80px 48px;
       max-width: 1080px;
       margin: 0 auto;
       width: 100%;
+    }
+
+    #hero {
+      min-height: 100vh;
+      padding-top: calc(var(--nav-h) + 80px);
     }
 
     section + section { border-top: 1px solid var(--border); }
@@ -169,7 +173,7 @@
       font-size: 17px;
       color: var(--muted);
       max-width: 660px;
-      margin-bottom: 44px;
+      margin-bottom: 32px;
       line-height: 1.75;
     }
 
@@ -272,6 +276,53 @@
       background: var(--accent);
     }
 
+    /* ── PRESIDIO ── */
+    .presidio-grid { display: flex; flex-direction: column; gap: 14px; }
+
+    .presidio-card {
+      display: flex;
+      gap: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 30px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .presidio-card:hover { border-color: rgba(124,106,247,0.3); transform: translateX(4px); }
+
+    .presidio-num {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      min-width: 24px;
+      padding-top: 3px;
+    }
+
+    .presidio-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .presidio-body p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 10px;
+    }
+
+    .presidio-quote {
+      margin-top: 14px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent2);
+      border-left: 2px solid var(--accent);
+      padding-left: 14px;
+      font-style: italic;
+    }
+
     /* ── FRAMEWORK ROWS ── */
     .framework { display: flex; flex-direction: column; gap: 10px; }
 
@@ -341,7 +392,7 @@
     .tl-body p { font-size: 14px; color: var(--muted); line-height: 1.65; }
 
     /* ── CTA ── */
-    #cta { align-items: center; text-align: center; position: relative; overflow: hidden; }
+    #cta { align-items: center; text-align: center; position: relative; overflow: hidden; padding: 100px 48px; }
 
     .cta-glow {
       position: absolute;
@@ -366,6 +417,21 @@
       .nav-links { display: none; }
       section { padding: calc(var(--nav-h) + 48px) 24px 64px; }
     }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+      transition-delay: var(--delay, 0ms);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    ::selection { background: rgba(124,106,247,0.35); color: #fff; }
   </style>
 </head>
 <body>
@@ -375,6 +441,7 @@
   <ul class="nav-links">
     <li><a href="#what">What Is It</a></li>
     <li><a href="#why">Why It Matters</a></li>
+    <li><a href="#presidio">Value to Presidio</a></li>
     <li><a href="#leaders">For Leaders</a></li>
     <li><a href="#framework">5-Lens Framework</a></li>
     <li><a href="#workshop">Workshop</a></li>
@@ -452,6 +519,42 @@
     <div class="stat">
       <div class="stat-n">10+</div>
       <div class="stat-l">insights per session on average</div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE TO PRESIDIO -->
+<section id="presidio">
+  <div class="s-label">Value to Presidio</div>
+  <h2 class="s-title">The Gap We're Addressing</h2>
+  <p class="s-intro">Solution Owners sit at the most critical intersection in any engagement — between what the client wants, what the business needs, and what engineering can build. Yet most SO development focuses on delivery execution: sprint hygiene, stakeholder management, requirement gathering.<br/><br/>What's missing is <strong>product judgment</strong> — the ability to look at a solution and ask not just "is it built right?" but "is it the right thing to build?"<br/><br/>Product teardowns are how we build that muscle — deliberately, as a practice-wide habit.</p>
+
+  <div class="presidio-grid">
+    <div class="presidio-card">
+      <div class="presidio-num">1</div>
+      <div class="presidio-body">
+        <h3>Client Credibility</h3>
+        <p>When an SO walks into a client conversation having studied best-in-class solutions in that domain, the dynamic shifts. Instead of responding to requirements, they're shaping them.</p>
+        <p>Clients don't just want a team that executes, they want a partner who brings informed opinions. Teardowns give our SOs the vocabulary and the evidence to do that.</p>
+        <div class="presidio-quote">From order-taker to trusted advisor — in the same role, with the same team.</div>
+      </div>
+    </div>
+    <div class="presidio-card">
+      <div class="presidio-num">2</div>
+      <div class="presidio-body">
+        <h3>Solution Quality</h3>
+        <p>Teardowns train SOs to benchmark what they're building against what's possible — not just what's been asked for.</p>
+        <p>When an SO has studied how three different products handle the same workflow, they make better decisions on edge cases, UX patterns, and architecture trade-offs. They catch gaps before they become rework. They push back on requirements that would lead to poor outcomes — with evidence, not just instinct.</p>
+        <div class="presidio-quote">Better inputs into engineering = fewer course corrections mid-delivery.</div>
+      </div>
+    </div>
+    <div class="presidio-card">
+      <div class="presidio-num">3</div>
+      <div class="presidio-body">
+        <h3>Career Growth for SOs</h3>
+        <p>The path from Solution Owner to Manager, Engagement Director, or even CPO requires one thing more than any other: the ability to think at the product level, not just the project level.</p>
+        <p>Teardowns are a structured way to build that thinking. SOs who practice teardowns regularly develop stronger product narratives, sharper prioritisation instincts, and the confidence to lead solution design — not just oversee it.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -590,10 +693,11 @@
 <footer>Product Teardown Framework</footer>
 
 <script>
+  // ── Active nav on scroll ──
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
 
-  const observer = new IntersectionObserver((entries) => {
+  const navObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const id = entry.target.getAttribute('id');
@@ -604,7 +708,42 @@
     });
   }, { threshold: 0.35 });
 
-  sections.forEach(s => observer.observe(s));
+  sections.forEach(s => navObserver.observe(s));
+
+  // ── Scroll-triggered reveal animations ──
+  // Tag individual elements with reveal + stagger delay
+  const staggerGroups = [
+    '.card-grid .card',
+    '.stats-row .stat',
+    '.two-col .panel',
+    '.presidio-grid .presidio-card',
+    '.framework .fw-row',
+    '.timeline .tl-item',
+  ];
+
+  staggerGroups.forEach(selector => {
+    document.querySelectorAll(selector).forEach((el, i) => {
+      el.classList.add('reveal');
+      el.style.setProperty('--delay', `${i * 80}ms`);
+    });
+  });
+
+  // Solo reveals (no stagger)
+  document.querySelectorAll('.s-label, .s-title, .s-intro, .hero-pov, .hero-label, .hero-title, .hero-sub, .hero-cta').forEach(el => {
+    el.classList.add('reveal');
+  });
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target); // animate once only
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 </script>
 </body>
 </html>
+
