@@ -96,11 +96,11 @@
 
     /* ── HERO ── */
     .hero-pov {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--accent2);
-      margin-bottom: 10px;
-      letter-spacing: 0.04em;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 8px;
+      letter-spacing: 0.06em;
     }
 
     .hero-label {
@@ -203,32 +203,70 @@
 
     .card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
 
-    /* ── STATS ── */
-    .stats-row {
-      display: flex;
-      gap: 16px;
-      margin-top: 36px;
-      flex-wrap: wrap;
+    /* ── WHY IT MATTERS TWO-PANEL ── */
+    .why-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 20px;
+      align-items: start;
     }
 
+    @media (max-width: 860px) { .why-layout { grid-template-columns: 1fr; } }
+
+    .why-rows { display: flex; flex-direction: column; gap: 10px; }
+
+    .why-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .why-row:hover { border-color: rgba(124,106,247,0.3); transform: translateX(4px); }
+
+    .why-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(124,106,247,0.1);
+      border: 1px solid rgba(124,106,247,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .why-icon svg { width: 20px; height: 20px; stroke: var(--accent2); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .why-text h3 { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .why-text p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    .why-stats { display: flex; flex-direction: column; gap: 12px; }
+
     .stat {
-      flex: 1;
-      min-width: 150px;
       background: var(--surface2);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 22px 24px;
+      padding: 28px 24px;
+      text-align: center;
+      transition: border-color 0.2s;
     }
 
+    .stat:hover { border-color: rgba(124,106,247,0.3); }
+
     .stat-n {
-      font-size: 38px;
+      font-size: 52px;
       font-weight: 800;
       color: var(--accent2);
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
       line-height: 1;
     }
 
-    .stat-l { font-size: 13px; color: var(--muted); margin-top: 6px; }
+    .stat-l { font-size: 13px; color: var(--muted); margin-top: 10px; line-height: 1.5; }
 
     /* ── TWO COLS ── */
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -243,17 +281,18 @@
     }
 
     .panel-title {
-      font-size: 13px;
+      font-size: 16px;
       font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--accent2);
+      color: var(--text);
       margin-bottom: 6px;
     }
 
     .panel-sub {
-      font-size: 13px;
-      color: var(--muted);
+      font-size: 12px;
+      color: var(--accent2);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       margin-bottom: 20px;
     }
 
@@ -301,7 +340,7 @@
     }
 
     .presidio-body h3 {
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 700;
       margin-bottom: 12px;
     }
@@ -321,6 +360,134 @@
       border-left: 2px solid var(--accent);
       padding-left: 14px;
       font-style: italic;
+    }
+
+    /* ── BIGGER PICTURE BENTO ── */
+    .bigger-callout {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 14px;
+      padding: 20px 24px;
+      font-size: 15px;
+      color: #c5c5e0;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .bento {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 14px;
+    }
+
+    @media (max-width: 720px) { .bento { grid-template-columns: 1fr; } }
+
+    .bento-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .bento-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 16px 16px 0 0;
+    }
+
+    .bento-card:hover { border-color: rgba(124,106,247,0.35); transform: translateY(-2px); }
+
+    .bento-card.tall { grid-row: span 2; }
+
+    .bento-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(124,106,247,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .bento-icon svg { width: 20px; height: 20px; stroke: var(--accent2); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .bento-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .bento-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .bento-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .bento-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .bento-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(124,106,247,0.15);
+      border: 1px solid rgba(124,106,247,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .bento-check svg { width: 11px; height: 11px; stroke: var(--accent2); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    .pipeline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 16px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 24px;
+      flex-wrap: wrap;
+    }
+
+    .pipeline-step {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .pipeline-arrow {
+      color: var(--accent2);
+      font-size: 18px;
+      font-weight: 700;
     }
 
     /* ── FRAMEWORK ROWS ── */
@@ -441,8 +608,9 @@
   <ul class="nav-links">
     <li><a href="#what">What Is It</a></li>
     <li><a href="#why">Why It Matters</a></li>
-    <li><a href="#presidio">Value to Presidio</a></li>
     <li><a href="#leaders">For Leaders</a></li>
+    <li><a href="#presidio">Value to Presidio</a></li>
+    <li><a href="#bigger">Bigger Picture</a></li>
     <li><a href="#framework">5-Lens Framework</a></li>
     <li><a href="#workshop">Workshop</a></li>
     <li><a href="#cta">Let's Start</a></li>
@@ -488,37 +656,89 @@
   <div class="s-label">Value</div>
   <h2 class="s-title">Why Product Teardowns Matter</h2>
 
-  <div class="card-grid">
-    <div class="card">
-      <h3>Build Product Intuition</h3>
-      <p>Repeated exposure to real products trains sharper instincts for what works and what doesn't</p>
+  <div class="why-layout">
+    <div class="why-rows">
+      <div class="why-row">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 4a6 6 0 1 1-6 6 6 6 0 0 1 6-6zm0 2a4 4 0 1 0 4 4 4 4 0 0 0-4-4z"/></svg>
+        </div>
+        <div class="why-text">
+          <h3>Build Product Intuition</h3>
+          <p>Repeated exposure to real products trains sharper instincts for what works and what doesn't</p>
+        </div>
+      </div>
+      <div class="why-row">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="why-text">
+          <h3>Learn from the Best</h3>
+          <p>Study industry standards and market needs for better customer empathy</p>
+        </div>
+      </div>
+      <div class="why-row">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="why-text">
+          <h3>Accelerate Team Growth</h3>
+          <p>Shared teardowns create a common vocabulary and elevate the whole team's thinking</p>
+        </div>
+      </div>
+      <div class="why-row">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        </div>
+        <div class="why-text">
+          <h3>Spot Market Gaps</h3>
+          <p>Identify gaps in the market and turn them into your opportunities</p>
+        </div>
+      </div>
     </div>
-    <div class="card">
-      <h3>Learn from the Best</h3>
-      <p>Study industry standards and market needs for better customer empathy</p>
-    </div>
-    <div class="card">
-      <h3>Accelerate Team Growth</h3>
-      <p>Shared teardowns create a common vocabulary and elevate the whole team's thinking</p>
-    </div>
-    <div class="card">
-      <h3>Spot Market Gaps</h3>
-      <p>Identify gaps in the market and turn them into your opportunities</p>
+
+    <div class="why-stats">
+      <div class="stat">
+        <div class="stat-n">3×</div>
+        <div class="stat-l">faster product intuition building</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">85%</div>
+        <div class="stat-l">of PMs say teardowns improved their UX skills</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">10+</div>
+        <div class="stat-l">insights per session on average</div>
+      </div>
     </div>
   </div>
+</section>
 
-  <div class="stats-row">
-    <div class="stat">
-      <div class="stat-n">3×</div>
-      <div class="stat-l">faster product intuition building</div>
+<!-- FOR LEADERS -->
+<section id="leaders">
+  <div class="s-label">Leadership</div>
+  <h2 class="s-title">Why This Is Critical for<br/>Techno-Functional Leaders</h2>
+  <p class="s-intro">As techno-functional leaders, you sit at the intersection of business and engineering. Product teardowns are your bridge — helping you speak both languages fluently and lead with confidence.</p>
+
+  <div class="two-col">
+    <div class="panel">
+      <div class="panel-title">Functional Lens</div>
+      <div class="panel-sub">What teardowns teach you about the product side:</div>
+      <ul>
+        <li>Understand user needs, workflows, and pain points from a structured lens</li>
+        <li>Evaluate UX patterns, onboarding flows, and feature trade-offs</li>
+        <li>Inform product roadmap decisions with real-world benchmarks</li>
+        <li>Identify gaps your product can fill vs. market gaps</li>
+      </ul>
     </div>
-    <div class="stat">
-      <div class="stat-n">85%</div>
-      <div class="stat-l">of PMs say teardowns improved their UX skills</div>
-    </div>
-    <div class="stat">
-      <div class="stat-n">10+</div>
-      <div class="stat-l">insights per session on average</div>
+    <div class="panel">
+      <div class="panel-title">Technical Lens</div>
+      <div class="panel-sub">What teardowns unlock on the engineering side:</div>
+      <ul>
+        <li>Decode technical stack choices and understand their architectural implications</li>
+        <li>Participate meaningfully in tech discussions — ask the right questions</li>
+        <li>Evaluate build vs. buy decisions with real product context</li>
+        <li>Make informed technical trade-off decisions grounded in product reality</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -559,33 +779,68 @@
   </div>
 </section>
 
-<!-- FOR LEADERS -->
-<section id="leaders">
-  <div class="s-label">Leadership</div>
-  <h2 class="s-title">Why This Is Critical for<br/>Techno-Functional Leaders</h2>
-  <p class="s-intro">As techno-functional leaders, you sit at the intersection of business and engineering. Product teardowns are your bridge — helping you speak both languages fluently and lead with confidence.</p>
+<!-- BIGGER PICTURE -->
+<section id="bigger">
+  <div class="s-label">Bigger Picture</div>
+  <h2 class="s-title">What It Means for Presidio</h2>
 
-  <div class="two-col">
-    <div class="panel">
-      <div class="panel-title">Functional Lens</div>
-      <div class="panel-sub">What teardowns teach you about the product side:</div>
-      <ul>
-        <li>Understand user needs, workflows, and pain points from a structured lens</li>
-        <li>Evaluate UX patterns, onboarding flows, and feature trade-offs</li>
-        <li>Inform product roadmap decisions with real-world benchmarks</li>
-        <li>Identify gaps your product can fill vs. market gaps</li>
+  <div class="bigger-callout">
+    Product teardowns don't just make better SOs — they create a compounding business advantage for the practice across positioning, billing, and new revenue opportunities.
+  </div>
+
+  <div class="bento">
+    <!-- Top-left -->
+    <div class="bento-card">
+      <div class="bento-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/></svg>
+      </div>
+      <h3>Better Project Positioning</h3>
+      <p>SOs with teardown practice walk into client conversations with benchmarks, not just slides. They position Presidio as the partner who understands the client's competitive landscape — not just one who delivers against a spec. This shifts how clients perceive the engagement from day one.</p>
+    </div>
+
+    <!-- Right — tall, spans 2 rows -->
+    <div class="bento-card tall">
+      <div class="bento-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg>
+      </div>
+      <h3>A New Revenue Line — Business Assessments</h3>
+      <p>Just as we offer Architectural Assessments today, teardown-trained SOs can independently lead Business Assessments — evaluating a client's product or service against best-in-class benchmarks.</p>
+      <ul class="bento-list">
+        <li>
+          <div class="bento-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+          Assess the client's current product or service delivery against market leaders
+        </li>
+        <li>
+          <div class="bento-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+          Identify gaps in UX, feature design, business model, or GTM strategy
+        </li>
+        <li>
+          <div class="bento-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+          Deliver a structured findings report with prioritised recommendations
+        </li>
+        <li>
+          <div class="bento-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+          Position Presidio as both a strategic advisor and implementation partner
+        </li>
       </ul>
     </div>
-    <div class="panel">
-      <div class="panel-title">Technical Lens</div>
-      <div class="panel-sub">What teardowns unlock on the engineering side:</div>
-      <ul>
-        <li>Decode technical stack choices and understand their architectural implications</li>
-        <li>Participate meaningfully in tech discussions — ask the right questions</li>
-        <li>Evaluate build vs. buy decisions with real product context</li>
-        <li>Make informed technical trade-off decisions grounded in product reality</li>
-      </ul>
+
+    <!-- Bottom-left -->
+    <div class="bento-card">
+      <div class="bento-icon">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5,12 12,5 19,12"/></svg>
+      </div>
+      <h3>Higher Billing Possibilities</h3>
+      <p>As technical and product expertise grows, SOs move from execution roles into advisory roles — commanding higher billing rates. A teardown-trained SO isn't just a delivery resource, they're a strategic asset. Clients pay more for partners who shape solutions, not just build them.</p>
     </div>
+  </div>
+
+  <div class="pipeline">
+    <span class="pipeline-step">Architectural Assessment</span>
+    <span class="pipeline-arrow">→</span>
+    <span class="pipeline-step">Business Assessment</span>
+    <span class="pipeline-arrow">→</span>
+    <span class="pipeline-step">Full Advisory Engagement</span>
   </div>
 </section>
 
@@ -714,9 +969,11 @@
   // Tag individual elements with reveal + stagger delay
   const staggerGroups = [
     '.card-grid .card',
-    '.stats-row .stat',
+    '.why-rows .why-row',
+    '.why-stats .stat',
     '.two-col .panel',
     '.presidio-grid .presidio-card',
+    '#bigger .bento-card',
     '.framework .fw-row',
     '.timeline .tl-item',
   ];
@@ -746,4 +1003,3 @@
 </script>
 </body>
 </html>
-
